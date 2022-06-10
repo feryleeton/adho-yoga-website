@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+{% load blog_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="hero-wrap js-fullheight" style="background-image: url('{% static "main/images/bg_3.jpg" %}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-3 bread">Courses</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home</a></span>
+                        <span>Courses</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row d-flex">
+
+                {% for course in courses %}
+
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry">
+                            <a href="{% url 'course_single' course.slug %}" class="block-20"
+                               style="background-image: url('{{ course.image_preview.url }}');">
+                            </a>
+                            <div class="text p-4 float-right d-block">
+                                <h3 class="heading mt-2"><a
+                                        href="{% url 'course_single' course.slug %}">{{ course.title }}</a></h3>
+                                <p>{{ course.description|truncatechars:125 | safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            {% if page_obj.has_other_pages %}
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                                {% endif %}
+                                {% for p in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == p %}
+                                        <li class="active"><span>{{ p }}</span></li>
+                                    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                        <li class=""><a href="?page={{ p }}"><span>{{ p }}</span></a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}">></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

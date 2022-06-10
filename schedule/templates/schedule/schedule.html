@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+{% load schedule_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="hero-wrap js-fullheight" style="background-image: url('{% static "main/images/bg_3.jpg" %}');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-3 bread">Yoga Schedule</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home</a></span> <span>Schedule</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+	  <section class="ftco-section">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="sched-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+                              <th style="background-color: white"></th>
+                                  {% for activity in longest|get_range %}
+                                      <th style="background-color: white"></th>
+                                  {% endfor %}
+						      </tr>
+						    </thead>
+                            <tbody>
+                            {% for day, activity in act_dict.items %}
+
+                                <tr class="text-center">
+                                    <td class="color">
+                                        <p class="time">{{ day }}</p>
+                                    </td>
+
+
+                                    {% for day_act in activity %}
+                                        <td class="color-1">
+                                            <h3><a href="#">{{ day_act.title }}</a></h3>
+                                            <span class="at">{{ day_act.category }}</span>
+                                            <p class="time">{{ day_act.start_time }} - {{ day_act.end_time }}</p>
+                                            <span class="trainer">{{ day_act.trainer }}</span>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+			</div>
+		</section>
+
+{% endblock %}

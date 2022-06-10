@@ -1,0 +1,11 @@
+<ul class="children">
+    {% for child_comment in replies %}
+        <li class="comment">
+            <div class="comment-body">
+                <h3>{{ child_comment.user.first_name }}</h3>
+                <div class="meta">{{ child_comment.published }}</div>
+                <p>{{ child_comment.message }}</p>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

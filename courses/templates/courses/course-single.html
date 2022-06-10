@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load courses_tags %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'courses/css/player_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <section class="hero-wrap js-fullheight" style="background-image: url('{% static "main/images/bg_3.jpg" %}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-3 bread">{{ course.title }}</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home</a></span> <span
+                            class="mr-2"><a href="{% url 'courses' %}">Courses</a></span>
+                        <span>{{ course.title }}</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 ftco-animate">
+
+                    <h2 class="mb-3">About this course: </h2>
+                    <p>
+                        {{ course.description | safe }}
+                    </p>
+
+                    <div class="player-container">
+                        <div class="main-video-container">
+                            <video src="{{ first_lesson.video.url }}" loop controls class="main-video"
+                                   controlsList="nodownload"></video>
+                            <div class="main-video-descr">
+                                <h3 class="main-vid-title">{{ first_lesson.title }}</h3>
+                                <p class="main-vid-descr">{{ first_lesson.description | safe }}</p>
+                            </div>
+                        </div>
+
+                        <div class="video-list-container">
+
+                            {% for lesson in lessons %}
+                                {% if forloop.first %}
+
+
+                                    <div class="list active">
+                                        <video src="{{ lesson.video.url }}" class="list-video"
+                                               poster="{{ lesson.image_preview.url }}"></video>
+                                        <h3 class="list-title">{{ lesson.title }}</h3>
+                                        <p class="list-descr" style="display: none">{{ lesson.description }}</p>
+                                    </div>
+
+                                {% else %}
+                                    <div class="list">
+                                        <video src="{{ lesson.video.url }}" class="list-video"
+                                               poster="{{ lesson.image_preview.url }}"></video>
+                                        <h3 class="list-title">{{ lesson.title }}</h3>
+                                        <p class="list-descr" style="display: none">{{ lesson.description }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .col-md-8 -->
+    </section> <!-- .section -->
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'courses/js/player_script.js' %}"></script>
+{% endblock %}
