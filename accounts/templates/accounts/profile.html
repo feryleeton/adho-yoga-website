@@ -1,0 +1,157 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'main/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <title>{{ user.first_name }} | Profile</title>
+    <style>
+        @media (max-width: 768px) {
+            #save-profile {
+                display: none
+            }
+
+            #save-profile-mobile{
+                display: block;
+            }
+        }
+        @media (min-width: 768px) {
+            #save-profile {
+                display: block;
+            }
+
+            #save-profile-mobile{
+                display: none;
+            }
+        }
+</style>
+</head>
+<body>
+<div class="container rounded bg-white mt-5 mb-5">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div align="center">
+                    <a href="{% url 'home' %}"><span class="border px-3 p-1 btn btn-primary profile-button"
+                                                   style="margin-top: 50px;"><i
+                        class="fa fa-plus"></i><< Back</span></a>
+                </div>
+
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                                                                                             width="150px"
+                                                                                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                        class="font-weight-bold">{{ user.first_name }}</span>
+                    <a href="{% url 'logout' %}"><span
+                            class="border px-3 p-1 add-experience btn btn-primary profile-button"
+                            style="margin-top: 50px;"><i class="fa fa-plus"></i>&nbsp;Log out</span></a>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Name</label>{{ profile_form.first_name }}
+                        </div>
+                        <div class="col-md-6"><label class="labels">Last Name</label>{{ profile_form.last_name }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Username</label>{{ profile_form.username }}</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Email Address</label>
+                            {{ profile_form.email }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Mobile
+                            Number</label>{{ profile_form.mobile_number }}</div>
+                    </div>
+
+                    <div class="mt-5 text-center" id="save-profile">
+                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience">
+                        <span>Address info</span>
+                    </div>
+                    <br>
+                    <div class="col-md-12"><label class="labels">Country</label>{{ profile_form.country }}
+                    </div>
+                    <div class="col-md-12"><label class="labels">Address</label>{{ profile_form.address }}</div>
+                    <div class="col-md-12"><label class="labels">Postcode</label>{{ profile_form.postal_code }}</div>
+                    <div class="col-md-12"><label class="labels">State</label>{{ profile_form.state }}</div>
+                    <div class="mt-5 text-center" id="save-profile-mobile">
+                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    </div>
+                </div>
+                {{ profile_form.errors }}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<script src="{% static 'main/js/jquery.min.js' %}"></script>
+<script src="{% static 'main/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+
+    // auto fill the form
+
+    let first_name = "{{ user.first_name }}"
+    let last_name = "{{ user.last_name }}"
+    let username = "{{ user.username }}"
+    let email_address = "{{ user.email }}"
+    let mobile_phone = "{{ user.mobile_number }}"
+
+    let country = "{{ user.country }}"
+    let state = "{{ user.state }}"
+    let address = "{{ user.address }}"
+    let postal_code = "{{ user.postal_code }}"
+
+    {% if user.first_name %}
+        $('#first_name').val(first_name)
+    {% endif %}
+    {% if user.last_name %}
+        $('#last_name').val(last_name)
+    {% endif %}
+    {% if user.username %}
+        $('#username').val(username)
+    {% endif %}
+    {% if user.email %}
+        $('#email_address').val(email_address)
+    {% endif %}
+    {% if user.mobile_number %}
+        $('#phone').val(mobile_phone)
+    {% endif %}
+
+
+    {% if user.country %}
+        $('#country').val(country)
+    {% endif %}
+    {% if user.state %}
+        $('#state').val(state)
+    {% endif %}
+    {% if user.address %}
+        $('#address').val(address)
+    {% endif %}
+    {% if user.postal_code %}
+        $('#postal_code').val(postal_code)
+    {% endif %}
+
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from accounts.models import AdhoUser as User
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.

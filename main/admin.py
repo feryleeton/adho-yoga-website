@@ -11,3 +11,5 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Message, MessageAdmin)
+
+admin.site.index_title = "Welcome to AdhoYoga Admin panel"

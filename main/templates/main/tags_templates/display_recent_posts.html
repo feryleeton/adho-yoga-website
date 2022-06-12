@@ -8,7 +8,7 @@
             <div class="text p-4 float-right d-block">
                 {% display_date post.created %}
                 <h3 class="heading mt-2"><a href="{% url 'blog_single' post.slug %}">{{ post.title }}</a></h3>
-                <p>{{ post.text|truncatechars:125 }}</p>
+                <p>{{ post.text|truncatechars:125 | safe }}</p>
             </div>
         </div>
     </div>
